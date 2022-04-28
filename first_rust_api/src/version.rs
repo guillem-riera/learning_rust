@@ -1,6 +1,9 @@
 use std::fmt;
 use serde::Serialize;
 
+#[cfg(test)]
+mod tests;
+
 #[derive(Debug, Serialize, Clone)]
 pub struct Version {
     pub(crate) version: String
@@ -31,24 +34,4 @@ pub async fn get_version() -> Result<impl warp::Reply, warp::Rejection> {
     Ok(warp::reply::json(
         &v
     ))
-}
-
-#[cfg(test)]
-mod tests {
-    use crate::version::Version;
-
-    #[test]
-    fn version_test() {
-        // Given expected version
-        let expected = "2.0.0";
-
-        // when I create a Version struct with this expected version
-        let v = Version {
-            version: expected.parse().unwrap()
-        };
-        let actual = v.version;
-
-        // Then
-        assert_eq!(expected, actual)
-    }
 }
