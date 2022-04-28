@@ -12,5 +12,5 @@ build: ${RELEASE_TARGET}
 lint: ${RELEASE_TARGET}
 	cargo clippy
 
-${RELEASE_TARGET}:
+${RELEASE_TARGET}: src/*.rs tests/*.rs
 	cargo build --release
