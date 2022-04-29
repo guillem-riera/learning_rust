@@ -18,8 +18,8 @@ test:
 	cargo test
 
 deploy:
-	if [[ -f $${artifactory_registry_cargo_config_toml} ]]; then cp $${artifactory_registry_cargo_config_toml} ~/.cargo/config.toml; fi
-	if [[ -f $${artifactory_registry_cargo_credentials_toml} ]]; then cp $${artifactory_registry_cargo_credentials_toml} ~/.cargo/credentials.toml; fi
+	if [[ -f $${artifactory_registry_cargo_config_toml} ]]; then cp $${artifactory_registry_cargo_config_toml} ~/.cargo/config; fi
+	if [[ -f $${artifactory_registry_cargo_credentials_toml} ]]; then cp $${artifactory_registry_cargo_credentials_toml} ~/.cargo/credentials; fi
 	cargo publish
 
 ${RELEASE_TARGET}: src/*.rs tests/*.rs Cargo.toml Cargo.lock
