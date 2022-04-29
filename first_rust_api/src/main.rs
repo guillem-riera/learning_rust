@@ -5,7 +5,9 @@ mod version;
 // Use the tokio runtime
 #[tokio::main]
 async fn main() {
-    let v = version::Version { version: "1.0.0".parse().unwrap() };
+    let v = version::Version {
+        version: "1.0.0".parse().unwrap(),
+    };
     println!("Version: {v}");
 
     // Implementing an inline handler for the get_version
@@ -18,7 +20,5 @@ async fn main() {
     let routes = get_version_handler;
 
     // Start the server and serve requests
-    warp::serve(routes)
-        .run(([127, 0, 0, 1], 3030))
-        .await;
+    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
 }

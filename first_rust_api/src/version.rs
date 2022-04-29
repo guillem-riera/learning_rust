@@ -1,19 +1,17 @@
-use std::fmt;
 use serde::Serialize;
+use std::fmt;
 
 #[cfg(test)]
 mod tests;
 
 #[derive(Debug, Serialize, Clone)]
 pub struct Version {
-    pub(crate) version: String
+    pub(crate) version: String,
 }
 
 impl Version {
     fn new(version: String) -> Self {
-        Version {
-            version
-        }
+        Version { version }
     }
 }
 
@@ -30,8 +28,6 @@ impl fmt::Display for Version {
 
 // get version function returns a JSON reply wrapped in an OK Result
 pub async fn get_version() -> Result<impl warp::Reply, warp::Rejection> {
-    let v = Version { version: "1.0.0".parse().unwrap() };
-    Ok(warp::reply::json(
-        &v
-    ))
+    let v = Version::new("1.0.0".to_string());
+    Ok(warp::reply::json(&v))
 }

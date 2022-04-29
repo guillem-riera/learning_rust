@@ -1,6 +1,7 @@
-.PHONY: run build lint test deploy
+.PHONY: run build lint test deploy fmt
 
 APP_NAME = first_rust_api
+CARGO_EDITION ?= 2021
 
 RELEASE_TARGET = target/release/${APP_NAME}
 
@@ -9,9 +10,12 @@ UNIT_TESTS = src/version/*.rs
 run: build
 	cargo run
 
-build: ${RELEASE_TARGET}
+fmt: src/*.rs tests/*.rs ${UNIT_TESTS}
+	rustfmt --edition ${CARGO_EDITION} src/main.rs
 
-lint: ${RELEASE_TARGET}
+build: fmt ${RELEASE_TARGET}
+
+lint:
 	cargo clippy
 
 test:

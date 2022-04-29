@@ -8,7 +8,7 @@ fn version_test() {
 
     // when I create a Version struct with this expected version
     let v = Version {
-        version: expected.parse().unwrap()
+        version: expected.parse().unwrap(),
     };
     let actual = v.version;
 
