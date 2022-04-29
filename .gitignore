@@ -2,3 +2,4 @@ target
 .idea
 .ipynb_checkpoints
 /write_file/foo.txt
+**/.cargo
