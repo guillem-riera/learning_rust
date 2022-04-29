@@ -24,9 +24,7 @@ test:
 	cargo test
 
 deploy:
-	# if [[ -f $${artifactory_registry_cargo_config_toml} ]]; then cp $${artifactory_registry_cargo_config_toml} ~/.cargo/config; fi
-	# if [[ -f $${artifactory_registry_cargo_credentials_toml} ]]; then cp $${artifactory_registry_cargo_credentials_toml} ~/.cargo/credentials; fi
-	cargo publish
+	scripts/publish.sh
 
 ${DEBUG_TARGET}: src/*.rs tests/*.rs Cargo.toml Cargo.lock
 	cargo build --release
