@@ -3,7 +3,7 @@ name = "first_rust_api"
 version = "0.1.0"
 edition = "2021"
 # Publish only privately
-publish = ["artifactory"]
+publish = ["custom"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 

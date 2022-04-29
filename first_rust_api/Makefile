@@ -13,6 +13,8 @@ run: build
 fmt: src/*.rs tests/*.rs ${UNIT_TESTS}
 	rustfmt --edition ${CARGO_EDITION} src/main.rs
 
+debug: fmt ${DEBUG_TARGET}
+
 build: fmt ${RELEASE_TARGET}
 
 lint:
@@ -22,9 +24,12 @@ test:
 	cargo test
 
 deploy:
-	if [[ -f $${artifactory_registry_cargo_config_toml} ]]; then cp $${artifactory_registry_cargo_config_toml} ~/.cargo/config; fi
-	if [[ -f $${artifactory_registry_cargo_credentials_toml} ]]; then cp $${artifactory_registry_cargo_credentials_toml} ~/.cargo/credentials; fi
+	# if [[ -f $${artifactory_registry_cargo_config_toml} ]]; then cp $${artifactory_registry_cargo_config_toml} ~/.cargo/config; fi
+	# if [[ -f $${artifactory_registry_cargo_credentials_toml} ]]; then cp $${artifactory_registry_cargo_credentials_toml} ~/.cargo/credentials; fi
 	cargo publish
+
+${DEBUG_TARGET}: src/*.rs tests/*.rs Cargo.toml Cargo.lock
+	cargo build --release
 
 ${RELEASE_TARGET}: src/*.rs tests/*.rs Cargo.toml Cargo.lock
 	cargo build --release
