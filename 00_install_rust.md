@@ -4,16 +4,22 @@ This notebook will help you installing Rust.
 It covers *\*nix* like platforms, but focuses on macOS (at the moment).
 
 
-
-```bash
-## Install on macOS
+## Fastest way to install on macOS
 
 Using homebrew:
-```
 
 
 ```bash
 brew install rust
+```
+
+## Official installer for *Nix Systems
+
+The official and preferred way to install Rust and the tooling is using the rustup script:
+
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 ```
 
 ## Installing Other Tooling for this workshop
@@ -39,6 +45,16 @@ brew install python
 
 pip3 install -r jupyter_tools/requirements.txt
 ```
+
+### Optionally install the Bash Kernel and run the commands from within this playbook!
+
+
+```bash
+python3 -m bash_kernel install
+```
+
+    Installed kernelspec python3 in /usr/local/share/jupyter/kernels/python3
+
 
 
 ```bash

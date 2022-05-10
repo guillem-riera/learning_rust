@@ -197,7 +197,47 @@ do_something_if_let_10(elements);
     10
 
 
+## Strings
+
+Rust has 2 different concepts for strings:
+- `string literals`, which are not mutable and can be allocated on the *stack* because the size is known by the compiler.
+- `Strings` (capitalized), which *may* mutate (they might still require the *mut* keyword) and that are of unknown size, therefore allocated on the *heap*. 
+
+
 
 ```Rust
+let string_literal_example = "immutable string";
+println!("{}", string_literal_example);
+```
 
+    immutable string
+
+
+
+```Rust
+let mut mutable_string_with_variable_size = String::from("some value");
+mutable_string_with_variable_size += " which can grow and change size";
+mutable_string_with_variable_size += " and therefore will be allocated in the heap.";
+println!("{}", mutable_string_with_variable_size);
+```
+
+    some value which can grow and change size and therefore will be allocated in the heap.
+
+
+## Variable Scope (and lifecycle)
+
+Variables are scoped in Rust and their lifecycle is tied to their declaration.
+
+`{}` define scopes (even without the function keyword).
+
+When a variable goes out of scope (right after the closing curly brace), Rust calls a special function for us: `drop`.
+
+
+
+```Rust
+{
+    let mut s = String::from("hello"); // s is valid from this point forward and is allocated in the heap because
+    // its size is not known at all times by the compiler.
+} // this scope is now over, and s is no longer valid. Rust calls `drop` at this point for us.
+// this means that the memory will be freed (there are no more owners).
 ```
