@@ -1,6 +1,6 @@
 [package]
 name = "first_rust_api"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2021"
 # Publish only privately
 publish = ["custom"]
