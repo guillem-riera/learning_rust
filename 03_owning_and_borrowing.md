@@ -179,6 +179,8 @@ append_to_string_taking_ownership(s);
     example value appended
 
 
+### Borrowing: trying to mutate a string by its pointer
+
 
 ```Rust
 // Spoiler: This code forgets to return the mutated String back and it won't work as expected
@@ -213,6 +215,8 @@ println!("{}", s);
     borrow of moved value: `s`
 
 
+## Iterating while borrowing
+
 
 ```Rust
 use std::collections::HashMap;
@@ -233,8 +237,8 @@ for (key, value) in map {
 ```
 
     key1:value1
-    key2:value2
     key3:value3
+    key2:value2
 
 
 
@@ -243,6 +247,8 @@ for (key, value) in map {
     ()
 
 
+
+### Iterating: can't we iterate a collection multiple times?
 
 
 ```Rust
@@ -293,6 +299,8 @@ println!("{}:{}", key, value);
     
     &map
 
+
+### Iterate multiple times with an 'iter' iterator
 
 
 ```Rust
