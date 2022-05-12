@@ -83,11 +83,10 @@ println!("{}", s);
 
 ```Rust
 // Borrowing mutable String
-// if we repeat the same steps but instead use a String that is mutable ...
+// if we repeat the same steps but instead use a String (that is, the size is unknown at compile time and can grow, it lives in the heap)
 let mut s = String::from("String");
 println!("{}", s);
-// step 2: we point a new variable to be the new owner of that string literal,
-// but this time we use a reference of a static lifetime str, which is guaranteed to be valid for the duration of the entire program
+// step 2: we point a new variable to be the new owner (of the mutable String)
 let mut new_string_owner = s;
 new_string_owner += "(Modified)";
 println!("{}", new_string_owner);
@@ -358,7 +357,64 @@ There are three common methods which can create iterators from a collection:
 
 4. Various things in the standard library may implement one or more of the three, where appropriate.
 
+# Quick summary of the rules around ownership, move and copy semantics, and dropping
+
+
 
 ```Rust
+let x1 = 42;
+let y1 = Box::new(84);
+{ // starts a new scope
+    // x1's value is Copy, so it will not be moved into z
+    // y1's value is NOT Copy, so it will be moved into z
+    let z = (x1, y1);
+    println!("{},{}", z.0, z.1);
+} // z goes out of scope, and is dropped;
+// it in turn drops the values from x1 and y1
+
+// x1's value is Copy, so it was not moved into z
+let x2 = x1;
+println!("{}", x2);
+// y1's value is not Copy, so it was moved into z
+// let y2 = y1;
+```
+
+    42,84
+    42
+
+
+
+```Rust
+let x1 = 42;
+let y1 = Box::new(84);
+{ // starts a new scope
+// x1's value is Copy, so it will not be moved into z
+// y1's value is NOT Copy, so it will be moved into z
+let z = (x1, y1);
+println!("{},{}", z.0, z.1);
+} // z goes out of scope, and is dropped;
+// it in turn drops the values from x1 and y1
+
+// x1's value is Copy, so it was not moved into z
+let x2 = x1;
+println!("{}", x2);
+// y1's value is not Copy, so it was moved into z
+let y2 = y1;
 
 ```
+
+
+    let z = (x1, y1);
+
+                 ^^ value moved here
+
+    let y2 = y1;
+
+             ^^ value used here after move
+
+    let y1 = Box::new(84);
+
+        ^^ move occurs because `y1` has type `Box<i32>`, which does not implement the `Copy` trait
+
+    use of moved value: `y1`
+
